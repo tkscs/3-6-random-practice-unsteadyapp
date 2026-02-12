@@ -10,9 +10,6 @@ print(deck)
 # `deck` should be a list of strings with a value and a suit, e.g. "4♣"
 
 #shuffle your `deck` and print it out
-random.shuffle(deck)
-hand = deck[0:5]
-print(hand)
 def isFlush(hand):
     toReturn = True
     suit = ""
@@ -26,7 +23,6 @@ def isFlush(hand):
 def isStraight(hand):
     toReturn = False
     numbersOnly = reduceToInt(hand,True)
-    numbersOnly.sort()
     consec = 0
     for i in range(len(numbersOnly)):
         if(consec == 0):
@@ -46,25 +42,46 @@ def reduceToInt(list,toInt = True):
             toReturn.append(int(i[:-1]))
         else:
             toReturn.append(i[:-1])
+    toReturn.sort()
     return toReturn
 def whatpokerhand(hand):
     newHand = []
     for i in hand:
-        newHand.append(f"{values.index(i[0])+1}{i[1]}")
-    print(newHand)
+        newHand.append(f"{values.index(i[:-1])+1}{i[-1]}")
     straight = isStraight(newHand)
     flush = isFlush(newHand)
-    reduceToInt(highestpair)
+    reduced = reduceToInt(newHand)
+    numbers = []
+    for i in list(set((reduced.copy()))):
+        numbers.append(reduced.count(i))
+    print(numbers)
+    maxed= max(numbers)
     if(straight and flush and False):
         pass
     elif(straight and flush):
-        print("stright flush")
-
-
+        return("stright flush")
+    elif(maxed>3):
+        return("Four of a kind")
+    elif((3 in numbers) and (2 in numbers)):
+        return("full house")
+    elif(flush):
+        return("Flush")
+    elif(straight):
+        return(straight)
+    elif(maxed > 2):
+        return("three of a kind")
+    elif((2 == numbers.count(2))):
+        return "two pair"
+    elif(maxed > 1):
+        return("pair")
+    else:
+        return("high card")
     #flush = isFlush(hand)
     #if(hand): 
-whatpokerhand(['3f', '5♦', '6♦', '7♦', '8♦'])
-
-
+#print(whatpokerhand(['1♦', '3♦', '3♦', '3♦', '3♦']))
+for i in range(100):
+    random.shuffle(deck)
+    hand = deck[0:5]
+    print(hand,whatpokerhand(hand))
 # sample a hand of 5 cards and print it out
 # (WITHOUT replacement -- no repeats!)
