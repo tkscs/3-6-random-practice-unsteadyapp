@@ -1,11 +1,12 @@
 suits = "♠♥♣♦"
 values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 import random
+import matplotlib.pyplot as plt
 deck = []
+
 for j in range(len(suits)):
     for i in range(len(values)):
         deck.append(f"{values[i]}{suits[j]}")
-print(deck)
 # Make a deck of cards
 # `deck` should be a list of strings with a value and a suit, e.g. "4♣"
 
@@ -54,7 +55,6 @@ def whatpokerhand(hand):
     numbers = []
     for i in list(set((reduced.copy()))):
         numbers.append(reduced.count(i))
-    print(numbers)
     maxed= max(numbers)
     if(straight and flush and False):
         pass
@@ -79,9 +79,32 @@ def whatpokerhand(hand):
     #flush = isFlush(hand)
     #if(hand): 
 #print(whatpokerhand(['1♦', '3♦', '3♦', '3♦', '3♦']))
-for i in range(100):
+data = []
+sample = 1000
+for i in range(sample):
     random.shuffle(deck)
     hand = deck[0:5]
-    print(hand,whatpokerhand(hand))
+    pokerhand = whatpokerhand(hand)
+    data.append(pokerhand)
+    #print(hand,pokerhand)
+counts = []
+hands = []
+print(data)
+for i in list(set(data.copy())):
+    hands.append(i)
+    counts.append(data.count(i))
+
+fig, ax = plt.subplots()
+bar_colors = []
+for i in range(len(hands)):
+    bar_colors.append("tab:blue")
+
+
+ax.bar(hands, counts, label=hands, color=bar_colors)
+
+ax.set_ylabel('Number of hands')
+ax.set_title(f'Poker hands by probablity in a 1000')
+ax.legend(title='Poker Hands')
+plt.show()
 # sample a hand of 5 cards and print it out
 # (WITHOUT replacement -- no repeats!)
