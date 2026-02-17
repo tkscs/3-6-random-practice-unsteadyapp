@@ -1,4 +1,5 @@
 suits = "♠♥♣♦"
+import itertools
 values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 import random
 import matplotlib.pyplot as plt
@@ -103,16 +104,27 @@ def numToHand(number):
         return("pair")
     else:
         return("high card")
+def bestHandOfFive(hand):
+    combinations = list(itertools.combinations(hand,5))
+    highest = 100
+    for i in combinations:
+        highest = min(whatpokerhand(i),highest)
+    return(highest)
 sample = 1000
+#for i in range(sample):
+#    random.shuffle(deck)
+#    hand = deck[0:5]
+#    pokerhand = numToHand(whatpokerhand(hand))
+#    data.append(pokerhand)
+    #print(hand,pokerhand)
 for i in range(sample):
     random.shuffle(deck)
-    hand = deck[0:5]
-    pokerhand = numToHand(whatpokerhand(hand))
+    hand = deck[0:7]
+    pokerhand = numToHand(bestHandOfFive(hand))
     data.append(pokerhand)
     #print(hand,pokerhand)
 counts = []
 hands = []
-
 for i in list(set(data.copy())):
     hands.append(i)
     counts.append(int(data.count(i)))
