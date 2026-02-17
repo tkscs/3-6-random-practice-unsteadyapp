@@ -1,0 +1,5 @@
+username : 100
+username : 100200
+read = read()
+read[0] = dfjj
+write(read)

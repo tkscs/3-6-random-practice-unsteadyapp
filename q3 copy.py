@@ -1,7 +1,7 @@
 suits = "♠♥♣♦"
-import itertools
 values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 import random
+import pygame
 import matplotlib.pyplot as plt
 deck = []
 import pandas
@@ -58,33 +58,6 @@ def whatpokerhand(hand):
         numbers.append(reduced.count(i))
     maxed= max(numbers)
     if(straight and flush and False):
-        return(0)
-    elif(straight and flush):
-        return(1)
-    elif(maxed>3):
-        return(2)
-    elif((3 in numbers) and (2 in numbers)):
-        return(3)
-    elif(flush):
-        return(4)
-    elif(straight):
-        return(5)
-    elif(maxed > 2):
-        return(6)
-    elif((2 == numbers.count(2))):
-        return 7
-    elif(maxed > 1):
-        return 8
-    else:
-        return 9
-    #flush = isFlush(hand)
-    #if(hand): 
-#print(whatpokerhand(['1♦', '3♦', '3♦', '3♦', '3♦']))
-data = []
-def numToHand(number):
-    handList = ["royal flush","straight flush","four of a kind", "full house", "flush", "straight", "three of a kind", "two pair", "pair", "high card"]
-    return(handList[number])
-    if():
         return()
     elif(straight and flush):
         return("stright flush")
@@ -104,27 +77,22 @@ def numToHand(number):
         return("pair")
     else:
         return("high card")
-def bestHandOfFive(hand):
-    combinations = list(itertools.combinations(hand,5))
-    highest = 100
-    for i in combinations:
-        highest = min(whatpokerhand(i),highest)
-    return(highest)
+    raise Exception("GOT PASSED THE END")
+    #flush = isFlush(hand)
+    #if(hand): 
+#print(whatpokerhand(['1♦', '3♦', '3♦', '3♦', '3♦']))
+data = []
+
 sample = 1000
-#for i in range(sample):
-#    random.shuffle(deck)
-#    hand = deck[0:5]
-#    pokerhand = numToHand(whatpokerhand(hand))
-#    data.append(pokerhand)
-    #print(hand,pokerhand)
 for i in range(sample):
     random.shuffle(deck)
-    hand = deck[0:7]
-    pokerhand = numToHand(bestHandOfFive(hand))
+    hand = deck[0:5]
+    pokerhand = whatpokerhand(hand)
     data.append(pokerhand)
     #print(hand,pokerhand)
 counts = []
 hands = []
+
 for i in list(set(data.copy())):
     hands.append(i)
     counts.append(int(data.count(i)))
